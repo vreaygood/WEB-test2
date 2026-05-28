@@ -1,0 +1,122 @@
+html code:
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>ESP32 LED Control</title>
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <style>
+
+    body {
+
+      font-family: Arial;
+      text-align: center;
+      background: #f0f0f0;
+      margin-top: 80px;
+    }
+
+    h1 {
+
+      color: #333;
+    }
+
+    button {
+
+      width: 220px;
+      height: 70px;
+      font-size: 24px;
+      margin: 20px;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .on {
+
+      background-color: green;
+    }
+
+    .off {
+
+      background-color: red;
+    }
+
+    #status {
+
+      margin-top: 40px;
+      font-size: 28px;
+      color: blue;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>ESP32 LED Control</h1>
+
+  <button class="on"
+          onclick="ledOn()">
+    LED ON
+  </button>
+
+  <br>
+
+  <button class="off"
+          onclick="ledOff()">
+    LED OFF
+  </button>
+
+  <div id="status">
+    Status: OFF
+  </div>
+
+  <script>
+
+    const apiKey =
+      "YLV6CJTJNWWG1W2H";
+
+    function ledOn() {
+
+      fetch(
+        `https://api.thingspeak.com/update?api_key=${apiKey}&field1=1`
+      )
+
+      .then(response => response.text())
+
+      .then(data => {
+
+        console.log(data);
+
+        document.getElementById("status")
+        .innerHTML = "Status: LED ON";
+      });
+    }
+
+    function ledOff() {
+
+      fetch(
+        `https://api.thingspeak.com/update?api_key=${apiKey}&field1=0`
+      )
+
+      .then(response => response.text())
+
+      .then(data => {
+
+        console.log(data);
+
+        document.getElementById("status")
+        .innerHTML = "Status: LED OFF";
+      });
+    }
+
+  </script>
+
+</body>
+</html>
